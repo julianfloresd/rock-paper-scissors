@@ -10,10 +10,56 @@
 		<!-- external CSS link -->
 		<link rel="stylesheet" href="css/normalize.css">
 		<link rel="stylesheet" href="css/style.css">
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Belanosima:wght@600&display=swap" rel="stylesheet">
+		<script src="https://kit.fontawesome.com/3763c9adf2.js" crossorigin="anonymous"></script>
 	</head>
 	<body>
-		
+		<h1>
+			Piedra, papel o tijeras!!
+		</h1>
+		<div class="scoreRecord">
+			<h1 class="scoreBoard">
+				<i class="fa-solid fa-user"></i> 
+				<span id="userScore"></span> - <span id="cpuScore"></span>
+				<i class="fa-solid fa-laptop-code"></i>
+			</h1>
+			<aside>
+				-Record:
+			</aside>
+		</div>
 
+		</div>
+		
+		<div class="container">
+			<div class="playerHeader">
+				<h1>Player <i class="fa-solid fa-user"></i></h1>
+			</div>
+			<div class="playerSide">
+				<i class="fa-regular fa-hand-back-fist"></i>
+				<i class="fa-regular fa-hand"></i>
+				<i class="fa-regular fa-hand-scissors"></i>
+			</div>
+		</div>
+		
+		<div class="container">
+			<div class="cpuHeader">
+				<h1>CPU <i class="fa-solid fa-laptop-code"></i></h1>
+			</div>
+			<div class="cpuSide">
+				<div class="cardCpu">
+					<i class="fa-solid fa-hand-back-fist"></i>
+				</div>
+				<div class="cardCpu">
+					<i class="fa-solid fa-hand"></i>
+				</div>
+				<div class="cardCpu">
+					<i class="fa-solid fa-hand-scissors"></i>
+				</div>
+			</div>
+		</div>
+		<h1 class="outputMessage"></h1>
 		<script type="text/javascript" src="js/main.js"></script>
 	</body>
 </html>

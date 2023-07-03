@@ -1,54 +1,109 @@
+let userScore = 0;
+let cpuScore = 0;
+let roundCounter = 0;
+let cloneSelect = [];
+const userOptions = document.querySelectorAll('.playerSide > i')
+document.querySelector('#cpuScore').textContent = cpuScore
+document.querySelector('#userScore').textContent = userScore
+userOptions.forEach(option => option.addEventListener('click', function (e) {
+    roundCounter++;
+    document.querySelector('aside').innerText += `\n ${roundCounter} `
+    playerChoice = playerSelection(e);
+    cpuChoice = getComputerChoice();
+    game()
+}));
+    
+
 function getComputerChoice() {
     cpuSelectionValue = Math.ceil(Math.random()*3)
     if (cpuSelectionValue == 1) {
-        return cpuChoice = "ROCK"
+        cpuChoice = "ROCK"
     } else if (cpuSelectionValue == 2) {
-        return cpuChoice = "PAPER"
+        cpuChoice = "PAPER"
     } else {
-        return cpuChoice = "SCISSORS"
+        cpuChoice = "SCISSORS"
+    }
+    console.log(`CPU chose ${cpuChoice}`);
+    return cpuChoice
+}
+
+
+function playerSelection (e) {
+    let playerChoice = 0;
+    const playerRecord = document.createElement('i');
+    if (e.target.classList[1] == "fa-hand-back-fist") {
+        playerChoice = "ROCK"
+        playerRecord.className = "fa-regular fa-hand-back-fist";
+    } else if (e.target.classList[1] == "fa-hand") {
+        playerChoice = "PAPER"
+        playerRecord.className = "fa-regular fa-hand"
+    } else if (e.target.classList[1] == "fa-hand-scissors") {
+        playerChoice = "SCISSORS"
+        playerRecord.className = "fa-regular fa-hand-scissors";
+    }
+    playerRecord
+    cloneSelect[roundCounter - 1] = playerRecord.cloneNode(true);
+    document.querySelector('aside').appendChild(cloneSelect[roundCounter - 1]);
+    console.log(cloneSelect)
+    console.log(`You chose ${playerChoice}`); 
+    return playerChoice
+}
+
+
+function playRound() {
+    if ((playerChoice == "ROCK") || (playerChoice == "PAPER") || (playerChoice == "SCISSORS")) {
+        if (playerChoice === cpuChoice) {
+            console.log(`It's a tie. You both selected ${playerChoice}`)
+            return result = 1
+        } else if ((playerChoice == "ROCK" && cpuChoice == "PAPER") || (playerChoice == "PAPER" && cpuChoice == "SCISSORS") || (playerChoice == "SCISSORS" && cpuChoice == "ROCK")) {
+            console.log(`You lose. ${cpuChoice} beats ${playerChoice}.`)
+            return result = 2
+        } else if ((cpuChoice == "ROCK" && playerChoice == "PAPER") || (cpuChoice == "PAPER" && playerChoice == "SCISSORS") || (cpuChoice == "SCISSORS" && playerChoice == "ROCK")){
+            console.log(`YOU WIN! ${playerChoice} BEATS ${cpuChoice}!!`)
+            return result = 3 
+        }
+        console.log(result)   
     }
 }
 
 
 function game() {
-    const numberOfRounds = 5;
-    let userScore = 0;
-    let cpuScore = 0;
-    for (i=1; i <= numberOfRounds; i++){
-        let result = playRound();
-        if (result == 1) {
-            userScore += 0;
-            console.log(`Current score is ${userScore} - ${cpuScore}`)
-        } else if (result == 2) {
-            cpuScore += 1;
-            console.log(`Current score is ${userScore} - ${cpuScore}`)
-        } else {
-            userScore += 1;
-            console.log(`Current score is ${userScore} - ${cpuScore}`)
-        }
+
+    let result = playRound();
+    if (result == 1) {
+        console.log(`Current score is ${userScore} - ${cpuScore}`)
+    } else if (result == 2) {
+        cpuScore += 1;
+        
+        console.log(`Current score is ${userScore} - ${cpuScore}`)
+        document.querySelector('#cpuScore').textContent = cpuScore
+    } else {
+        userScore += 1;
+        console.log(`Current score is ${userScore} - ${cpuScore}`)
+        document.querySelector('#userScore').textContent = userScore
     }
-
-
-    function playRound(playerSelection, cpuSelection) {
-        const playerChoice = prompt("Rock, Paper or Scissors?").toUpperCase()
-        if ((playerChoice == "ROCK") || (playerChoice == "PAPER") || (playerChoice == "SCISSORS")) {
-            console.log(`You chose ${playerChoice}`);
-            const cpuChoice = getComputerChoice();
-            console.log(`CPU chose ${cpuChoice}`);
-            if (playerChoice === cpuChoice) {
-                console.log(`It's a tie. You both selected ${playerChoice}`)
-                return result = 1
-            } else if ((playerChoice == "ROCK" && cpuChoice == "PAPER") || (playerChoice == "PAPER" && cpuChoice == "SCISSORS") || (playerChoice == "SCISSORS" && cpuChoice == "ROCK")) {
-                console.log(`You lose. ${cpuChoice} beats ${playerChoice}.`)
-                return result = 2
-            } else if ((cpuChoice == "ROCK" && playerChoice == "PAPER") || (cpuChoice == "PAPER" && playerChoice == "SCISSORS") || (cpuChoice == "SCISSORS" && playerChoice == "ROCK")){
-                console.log(`YOU WIN! ${playerChoice} BEATS ${cpuChoice}!!`)
-                return result = 3 
-            }
-            console.log(result)
-        } else {
-            alert("Type your choice correctly. (case-insensitive)")
-            return 0
-        }
+    if (userScore === 5 ) {
+        console.log(`Congratulations. You won the set!!`)
+        userScore = 0;
+        cpuScore = 0;
+        roundCounter = 0;
+        document.querySelector('#userScore').textContent = userScore
+        document.querySelector('#cpuScore').textContent = cpuScore
+        document.querySelector('aside').innerText = `-Record:`
+        document.querySelector('.outputMessage').classList.add("win")
+        document.querySelector('.outputMessage').innerHTML = `Congratulations. You won the set!! <i class="fa-solid fa-thumbs-up win"></i>`
+    } else if (cpuScore === 5 ) {
+        console.log(`You lost... Better luck next time.`);
+        userScore = 0;
+        cpuScore = 0;
+        roundCounter = 0;
+        document.querySelector('#userScore').textContent = userScore
+        document.querySelector('#cpuScore').textContent = cpuScore
+        document.querySelector('aside').innerText = `-Record:`
+        document.querySelector('.outputMessage').classList.add("lose")
+        document.querySelector('.outputMessage').innerHTML = `You lost... Better luck next time. <i class="fa-solid fa-thumbs-down lose"></i>`
     }
 }
+
+
+
