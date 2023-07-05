@@ -1,16 +1,14 @@
 let userScore = 0;
 let cpuScore = 0;
 let roundCounter = 0;
-let cloneSelect = [];
 const userOptions = document.querySelectorAll('.playerSide > i')
 document.querySelector('#cpuScore').textContent = cpuScore
 document.querySelector('#userScore').textContent = userScore
 userOptions.forEach(option => option.addEventListener('click', function (e) {
-    roundCounter++;
-    document.querySelector('aside').innerText += `\n ${roundCounter} `
     playerChoice = playerSelection(e);
     cpuChoice = getComputerChoice();
-    game()
+    roundKeeping(playerChoice,cpuChoice);
+    game();
 }));
     
 
@@ -30,23 +28,40 @@ function getComputerChoice() {
 
 function playerSelection (e) {
     let playerChoice = 0;
-    const playerRecord = document.createElement('i');
     if (e.target.classList[1] == "fa-hand-back-fist") {
         playerChoice = "ROCK"
-        playerRecord.className = "fa-regular fa-hand-back-fist";
     } else if (e.target.classList[1] == "fa-hand") {
         playerChoice = "PAPER"
-        playerRecord.className = "fa-regular fa-hand"
     } else if (e.target.classList[1] == "fa-hand-scissors") {
         playerChoice = "SCISSORS"
-        playerRecord.className = "fa-regular fa-hand-scissors";
     }
-    playerRecord
-    cloneSelect[roundCounter - 1] = playerRecord.cloneNode(true);
-    document.querySelector('aside').appendChild(cloneSelect[roundCounter - 1]);
-    console.log(cloneSelect)
     console.log(`You chose ${playerChoice}`); 
     return playerChoice
+}
+
+
+function roundKeeping (roundPlayer, roundCpu) {
+    const userRound = document.createElement('i');
+    const cpuRound = document.createElement('i');
+    if (roundPlayer == "ROCK") {
+        userRound.className += "fa-regular fa-hand-back-fist"
+    } else if (roundPlayer == "PAPER") {
+        userRound.className += "fa-regular fa-hand"
+    } else if (roundPlayer == "SCISSORS") {
+        userRound.className += "fa-regular fa-hand-scissors"
+    }
+    if (roundCpu == "ROCK") {
+        cpuRound.className += "fa-solid fa-hand-back-fist"
+    } else if (roundCpu == "PAPER") {
+        cpuRound.className += "fa-solid fa-hand"
+    } else if (roundCpu == "SCISSORS") {
+        cpuRound.className += "fa-solid fa-hand-scissors"
+    }
+    roundCounter++;
+    document.querySelector('aside').innerText += `\n ${roundCounter} `
+    document.querySelector("#recordKeep").appendChild(userRound);
+    document.querySelector('aside').lastElementChild.after(" - ")
+    document.querySelector("#recordKeep").append(cpuRound);
 }
 
 
@@ -74,7 +89,6 @@ function game() {
         console.log(`Current score is ${userScore} - ${cpuScore}`)
     } else if (result == 2) {
         cpuScore += 1;
-        
         console.log(`Current score is ${userScore} - ${cpuScore}`)
         document.querySelector('#cpuScore').textContent = cpuScore
     } else {
@@ -104,6 +118,3 @@ function game() {
         document.querySelector('.outputMessage').innerHTML = `You lost... Better luck next time. <i class="fa-solid fa-thumbs-down lose"></i>`
     }
 }
-
-
-
