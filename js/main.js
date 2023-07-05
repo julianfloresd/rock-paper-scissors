@@ -104,9 +104,9 @@ function game() {
         document.querySelector('#userScore').textContent = userScore
         document.querySelector('#cpuScore').textContent = cpuScore
         document.querySelector('aside').innerText = `-Record:`
-        document.querySelector('.outputMessage').classList = ""
-        document.querySelector('.outputMessage').classList.add("win")
-        document.querySelector('.outputMessage').innerHTML = `Congratulations. You won the set!! <i class="fa-solid fa-thumbs-up win"></i>`
+        document.querySelector('#outputMessage').classList.remove("lose")
+        document.querySelector('#outputMessage').classList.add("win")
+        document.querySelector('#outputMessage').innerHTML = `Congratulations. You won the set!! <i class="fa-solid fa-thumbs-up win"></i>`
     } else if (cpuScore === 5 ) {
         console.log(`You lost... Better luck next time.`);
         userScore = 0;
@@ -115,8 +115,8 @@ function game() {
         document.querySelector('#userScore').textContent = userScore
         document.querySelector('#cpuScore').textContent = cpuScore
         document.querySelector('aside').innerText = `-Record:`
-        document.querySelector('.outputMessage').classList = ""
-        document.querySelector('.outputMessage').classList.add("lose")
-        document.querySelector('.outputMessage').innerHTML = `You lost... Better luck next time. <i class="fa-solid fa-thumbs-down lose"></i>`
+        document.querySelector('#outputMessage').classList.remove("win")
+        document.querySelector('#outputMessage').classList.add("lose")
+        document.querySelector('#outputMessage').innerHTML = `You lost... Better luck next time. <i class="fa-solid fa-thumbs-down lose"></i>`
     }
 }
